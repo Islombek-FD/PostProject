@@ -1,4 +1,3 @@
-import React from "react";
 import MyButton from "../UI/MyButton";
 
 function PostItem({ post, removePost, index }) {
