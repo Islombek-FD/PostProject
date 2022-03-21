@@ -1,12 +1,30 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import "./App.css";
+import PostFilter from "./Components/Post/PostFilter";
 import PostForm from "./Components/Post/PostForm";
 import PostList from "./Components/Post/PostList";
-import MySelect from "./Components/UI/MySelect";
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [selectedSort, setSelectedSort] = useState("");
+  const [filter, setFilter] = useState({
+    sort: "",
+    query: "",
+  });
+
+  const sortedPosts = useMemo(() => {
+    if (filter.sort) {
+      return [...posts].sort((a, b) =>
+        a[filter.sort] > b[filter.sort] ? 1 : -1
+      );
+    }
+    return posts;
+  }, [filter.sort, posts]);
+
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter((post) =>
+      post.title.toLowerCase().includes(filter.query.toLowerCase())
+    );
+  }, [filter.query, sortedPosts]);
 
   const createPost = (newPost) => setPosts([...posts, newPost]);
 
@@ -17,37 +35,18 @@ function App() {
     setPosts([...posts]);
   };
 
-  const sortPost = (sort) => {
-    setSelectedSort(sort);
-    setPosts([...posts].sort((a, b) => (a[sort] > b[sort] ? 1 : -1)));
-  };
-
   return (
     <>
       <div className="post">
         <PostForm createPost={createPost} />
 
-        <hr />
+        <PostFilter filter={filter} setFilter={setFilter} />
 
-        <MySelect
-          onChange={sortPost}
-          value={selectedSort}
-          defaultValue="Sort"
-          options={[
-            { value: "title", name: "By title" },
-            { value: "body", name: "By body" },
-          ]}
+        <PostList
+          posts={sortedAndSearchedPosts}
+          removePost={removePost}
+          title="React Js Postlari"
         />
-
-        {posts.length !== 0 ? (
-          <PostList
-            posts={posts}
-            removePost={removePost}
-            title="React Js Postlari"
-          />
-        ) : (
-          <h2 className="post-title">Post not found!</h2>
-        )}
       </div>
     </>
   );

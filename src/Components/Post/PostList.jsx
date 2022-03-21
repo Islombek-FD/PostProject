@@ -1,6 +1,14 @@
 import PostItem from "./PostItem";
 
 function PostList({ posts, removePost, title }) {
+  if (!posts) {
+    return (
+      <>
+        <h2 className="post-center">Post not found!</h2>
+      </>
+    );
+  }
+
   return (
     <div>
       <h2 className="post-title">{title}</h2>
