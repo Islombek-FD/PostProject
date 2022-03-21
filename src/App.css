@@ -1,0 +1,76 @@
+.post {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid orange;
+}
+
+.post-form {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.post-form-input {
+    flex-grow: 1;
+    width: 35%;
+    padding: 10px;
+    border: 2px solid teal;
+}
+
+.post-form-button {
+    padding: 10px;
+    font-weight: 600;
+    background-color: transparent;
+    color: teal;
+    cursor: pointer;
+    border: 2px solid teal;
+    transition: all 0.3s ease;
+}
+
+.post-form-button:hover {
+    background-color: teal;
+    color: white;
+}
+
+.post-title {
+    text-align: center;
+}
+
+.post-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 3px solid teal;
+}
+
+.post-item-info {
+    display: flex;
+    column-gap: 15px; 
+}
+
+.post-item-title,
+.post-item-body {
+    margin: 0;
+}
+
+.post-item-index {
+    font-size: 20px;
+    color: brown;
+}
+
+.post-item-button {
+    padding: 5px 15px;
+    background-color: transparent;
+    color: red;
+    border: 2px solid red;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.post-item-button:hover {
+    background-color: red;
+    color: antiquewhite;
+}
