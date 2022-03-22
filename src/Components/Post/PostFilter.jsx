@@ -1,5 +1,5 @@
-import MyInput from "../UI/MyInput";
-import MySelect from "../UI/MySelect";
+import MyInput from "../UI/MyInput/MyInput";
+import MySelect from "../UI/MySelect/MySelect";
 
 function PostFilter({ filter, setFilter }) {
   return (

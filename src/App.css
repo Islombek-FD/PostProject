@@ -1,82 +1,135 @@
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-.post {
-    max-width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid orange;
+
+.container {
+  max-width: 60%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid orange;
 }
 
-.post-form {
-    display: flex;
-    margin-bottom: 20px;
+
+/* Create Post Form Styles */
+.post-form .post-form-button {
+  width: 120px;
+  margin-bottom: 0;
 }
 
 .post-form-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 2px solid teal;
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 2px solid teal;
+}
+
+.post-form-buttons {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .post-form-button {
-    width: 100px;
-    padding: 10px;
-    font-weight: 600;
-    background-color: transparent;
-    color: teal;
-    cursor: pointer;
-    border: 2px solid teal;
-    transition: all 0.3s ease;
+  margin-bottom: 15px;
+  padding: 10px;
+  font-weight: 600;
+  background-color: transparent;
+  color: teal;
+  cursor: pointer;
+  border: 2px solid teal;
+  transition: all 0.3s ease;
+}
+
+.post-form-button.danger {
+  margin-right: 15px;
+  color: red;
+  border-color: red;
 }
 
 .post-form-button:hover {
-    background-color: teal;
-    color: white;
+  background-color: teal;
+  color: white;
 }
 
+.post-form-button.danger:hover {
+  background-color: red;
+  color: white;
+}
+
+.post-sort-select {
+  width: 200px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid teal;
+}
+
+
+/* Post List Styles */
 .post-title {
-    text-align: center;
+  text-align: center;
 }
 
 .post-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 3px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 3px solid teal;
 }
 
 .post-item-info {
-    display: flex;
-    column-gap: 15px; 
+  display: flex;
+  column-gap: 15px;
 }
 
 .post-item-title,
 .post-item-body {
-    margin: 0;
+  margin: 0;
 }
 
 .post-item-index {
-    font-size: 20px;
-    color: brown;
+  font-size: 20px;
+  color: brown;
 }
 
 .post-item-button {
-    padding: 5px 15px;
-    background-color: transparent;
-    color: red;
-    border: 2px solid red;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  padding: 5px 15px;
+  background-color: transparent;
+  color: red;
+  border: 2px solid red;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .post-item-button:hover {
-    background-color: red;
-    color: antiquewhite;
+  background-color: red;
+  color: antiquewhite;
+}
+
+/* Create Post Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal-inner {
+  padding: 20px;
+  border-radius: 4px;
+  background-color: white;
 }

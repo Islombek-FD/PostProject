@@ -1,4 +1,4 @@
-import MyButton from "../UI/MyButton";
+import MyButton from "../UI/MyButton/MyButton";
 
 function PostItem({ post, removePost, index }) {
   return (

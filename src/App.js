@@ -1,48 +1,58 @@
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import PostFilter from "./Components/Post/PostFilter";
 import PostForm from "./Components/Post/PostForm";
 import PostList from "./Components/Post/PostList";
+import MyButton from "./Components/UI/MyButton/MyButton";
+import MyModal from "./Components/UI/MyModal/MyModal";
+import PostServes from "./Components/API/PostServes";
+import { usePost } from "./Hooks/usePost";
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [filter, setFilter] = useState({
-    sort: "",
-    query: "",
-  });
+  const [filter, setFilter] = useState({ sort: "", query: "" });
+  const [isModal, setIsModal] = useState(false);
+  const [isPostLoading, setIsPostLoading] = useState(false);
+  const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
 
-  const sortedPosts = useMemo(() => {
-    if (filter.sort) {
-      return [...posts].sort((a, b) =>
-        a[filter.sort] > b[filter.sort] ? 1 : -1
-      );
-    }
-    return posts;
-  }, [filter.sort, posts]);
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((post) =>
-      post.title.toLowerCase().includes(filter.query.toLowerCase())
-    );
-  }, [filter.query, sortedPosts]);
-
-  const createPost = (newPost) => setPosts([...posts, newPost]);
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
+    setIsModal(false);
+  };
 
   const removePost = (postId) => {
-    const postIndex = posts.findIndex((post) => post.id === postId);
-
-    posts.splice(postIndex, 1);
-    setPosts([...posts]);
+    setPosts((posts) => posts.filter((post) => post.id !== postId));
   };
+
+  async function fetchPosts() {
+    setIsPostLoading(true);
+
+    setTimeout(async () => {
+      const posts = await PostServes.getAll();
+      setPosts(posts);
+      setIsPostLoading(false);
+    }, 1000);
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   return (
     <>
-      <div className="post">
-        <PostForm createPost={createPost} />
+      <div className="container">
+        <MyButton onClick={() => setIsModal(true)} className="post-form-button">
+          Create Post
+        </MyButton>
+
+        <MyModal visible={isModal} setVisible={setIsModal}>
+          <PostForm createPost={createPost} setIsModal={setIsModal} />
+        </MyModal>
 
         <PostFilter filter={filter} setFilter={setFilter} />
 
         <PostList
+          isPostLoading={isPostLoading}
           posts={sortedAndSearchedPosts}
           removePost={removePost}
           title="React Js Postlari"

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import MyButton from "../UI/MyButton";
-import MyInput from "../UI/MyInput";
+import MyButton from "../UI/MyButton/MyButton";
+import MyInput from "../UI/MyInput/MyInput";
 
-function PostForm({ createPost }) {
+function PostForm({ createPost, setIsModal }) {
   const [post, setPost] = useState({ title: "", body: "" });
 
   const addPostForm = (evt) => {
@@ -31,9 +31,19 @@ function PostForm({ createPost }) {
         placeholder="Post body"
       />
 
-      <MyButton className="post-form-button" type="submit">
-        Create post
-      </MyButton>
+      <div className="post-form-buttons">
+        <MyButton
+          onClick={() => setIsModal(false)}
+          className="post-form-button danger"
+          type="button"
+        >
+          Close
+        </MyButton>
+
+        <MyButton className="post-form-button" type="submit">
+          Create
+        </MyButton>
+      </div>
     </form>
   );
 }
