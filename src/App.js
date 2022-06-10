@@ -7,13 +7,19 @@ import MyButton from "./Components/UI/MyButton/MyButton";
 import MyModal from "./Components/UI/MyModal/MyModal";
 import PostServes from "./Components/API/PostServes";
 import { usePost } from "./Hooks/usePost";
+import useFetching from "./Hooks/useFetching";
+import SimpleMap from "./Components/Map";
+import LoginByTelegram from "./Components/LoginByTelegram";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [isModal, setIsModal] = useState(false);
-  const [isPostLoading, setIsPostLoading] = useState(false);
   const sortedAndSearchedPosts = usePost(posts, filter.sort, filter.query);
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const posts = await PostServes.getAll();
+    setPosts(posts);
+  });
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -24,24 +30,17 @@ function App() {
     setPosts((posts) => posts.filter((post) => post.id !== postId));
   };
 
-  async function fetchPosts() {
-    setIsPostLoading(true);
-
-    setTimeout(async () => {
-      const posts = await PostServes.getAll();
-      setPosts(posts);
-      setIsPostLoading(false);
-    }, 1000);
-  }
-
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <>
       <div className="container">
-        <MyButton onClick={() => setIsModal(true)} className="post-form-button">
+        {/* <SimpleMap /> */}
+
+        <LoginByTelegram />
+        {/* <MyButton onClick={() => setIsModal(true)} className="post-form-button">
           Create Post
         </MyButton>
 
@@ -51,12 +50,14 @@ function App() {
 
         <PostFilter filter={filter} setFilter={setFilter} />
 
+        {postError && <h2>{postError}</h2>}
+
         <PostList
-          isPostLoading={isPostLoading}
+          isPostsLoading={isPostsLoading}
           posts={sortedAndSearchedPosts}
           removePost={removePost}
           title="React Js Postlari"
-        />
+        /> */}
       </div>
     </>
   );

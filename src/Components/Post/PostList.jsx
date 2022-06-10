@@ -1,8 +1,13 @@
 import PostItem from "./PostItem";
+import Loader from "../UI/Loader/Loader";
 
-function PostList({ isPostLoading, posts, removePost, title }) {
-  if (isPostLoading) {
-    return <h2 className="post-center">Post loading ...</h2>;
+function PostList({ isPostsLoading, posts, removePost, title }) {
+  if (isPostsLoading) {
+    return (
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Loader />
+      </div>
+    );
   } else if (posts === []) {
     return <h2 className="post-center">Post not found!</h2>;
   } else if (posts !== []) {
