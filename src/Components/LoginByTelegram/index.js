@@ -7,7 +7,7 @@ const handleTelegramResponse = response => {
 
 function LoginByTelegram() {
    return (
-      <TelegramLoginButton dataOnauth={handleTelegramResponse} botName="JobsterJbot" />
+      <TelegramLoginButton dataOnauth={handleTelegramResponse} botName="test" />
    )
 }
 
